@@ -1,0 +1,167 @@
+W15:46:00.798 [Test worker] DEBUG reactor.util.Loggers - Using Slf4j logging framework
+…15:46:00.873 [Test worker] INFO reactor.Flux.DefaultIfEmpty.1 - onSubscribe([Fuseable] FluxDefaultIfEmpty.DefaultIfEmptySubscriber)
+T15:46:00.880 [Test worker] INFO reactor.Flux.DefaultIfEmpty.1 - request(unbounded)
+Q15:46:00.880 [Test worker] INFO reactor.Flux.DefaultIfEmpty.1 - onNext(default)
+N15:46:00.881 [Test worker] INFO reactor.Flux.DefaultIfEmpty.1 - onComplete()
+Y15:46:00.964 [Test worker] INFO reactor.Mono.Map.2 - onSubscribe(FluxMap.MapSubscriber)
+I15:46:00.964 [Test worker] INFO reactor.Mono.Map.2 - request(unbounded)
+A15:46:00.980 [Test worker] INFO reactor.Mono.Map.2 - onNext(AB)
+C15:46:00.980 [Test worker] INFO reactor.Mono.Map.2 - onComplete()
+w15:46:00.986 [Test worker] INFO reactor.Flux.SwitchIfEmpty.3 - onSubscribe(FluxSwitchIfEmpty.SwitchIfEmptySubscriber)
+S15:46:00.986 [Test worker] INFO reactor.Flux.SwitchIfEmpty.3 - request(unbounded)
+J15:46:00.988 [Test worker] INFO reactor.Flux.SwitchIfEmpty.3 - onNext(D)
+J15:46:00.988 [Test worker] INFO reactor.Flux.SwitchIfEmpty.3 - onNext(E)
+J15:46:00.988 [Test worker] INFO reactor.Flux.SwitchIfEmpty.3 - onNext(F)
+J15:46:00.988 [Test worker] INFO reactor.Flux.SwitchIfEmpty.3 - onNext(A)
+J15:46:00.989 [Test worker] INFO reactor.Flux.SwitchIfEmpty.3 - onNext(U)
+J15:46:00.989 [Test worker] INFO reactor.Flux.SwitchIfEmpty.3 - onNext(L)
+J15:46:00.989 [Test worker] INFO reactor.Flux.SwitchIfEmpty.3 - onNext(T)
+M15:46:00.989 [Test worker] INFO reactor.Flux.SwitchIfEmpty.3 - onComplete()
+w15:46:01.010 [Test worker] INFO reactor.Flux.MergeSequential.4 - onSubscribe(FluxMergeSequential.MergeSequentialMain)
+U15:46:01.010 [Test worker] INFO reactor.Flux.MergeSequential.4 - request(unbounded)
+K15:46:01.122 [parallel-1] INFO reactor.Flux.MergeSequential.4 - onNext(A)
+K15:46:01.230 [parallel-3] INFO reactor.Flux.MergeSequential.4 - onNext(B)
+K15:46:01.337 [parallel-4] INFO reactor.Flux.MergeSequential.4 - onNext(C)
+K15:46:01.337 [parallel-4] INFO reactor.Flux.MergeSequential.4 - onNext(D)
+K15:46:01.338 [parallel-4] INFO reactor.Flux.MergeSequential.4 - onNext(E)
+K15:46:01.511 [parallel-6] INFO reactor.Flux.MergeSequential.4 - onNext(F)
+N15:46:01.512 [parallel-6] INFO reactor.Flux.MergeSequential.4 - onComplete()
+Z15:46:01.607 [Test worker] INFO reactor.Flux.Zip.5 - onSubscribe(FluxZip.ZipCoordinator)
+I15:46:01.608 [Test worker] INFO reactor.Flux.Zip.5 - request(unbounded)
+A15:46:01.609 [Test worker] INFO reactor.Flux.Zip.5 - onNext(AD)
+A15:46:01.609 [Test worker] INFO reactor.Flux.Zip.5 - onNext(BE)
+A15:46:01.616 [Test worker] INFO reactor.Flux.Zip.5 - onNext(CF)
+C15:46:01.617 [Test worker] INFO reactor.Flux.Zip.5 - onComplete()
+j15:46:01.653 [Test worker] INFO reactor.Flux.ConcatMap.6 - onSubscribe(FluxConcatMap.ConcatMapImmediate)
+O15:46:01.653 [Test worker] INFO reactor.Flux.ConcatMap.6 - request(unbounded)
+E15:46:02.343 [parallel-7] INFO reactor.Flux.ConcatMap.6 - onNext(A)
+E15:46:03.040 [parallel-8] INFO reactor.Flux.ConcatMap.6 - onNext(L)
+E15:46:03.743 [parallel-1] INFO reactor.Flux.ConcatMap.6 - onNext(E)
+E15:46:04.434 [parallel-2] INFO reactor.Flux.ConcatMap.6 - onNext(X)
+E15:46:04.714 [parallel-3] INFO reactor.Flux.ConcatMap.6 - onNext(C)
+E15:46:04.992 [parallel-4] INFO reactor.Flux.ConcatMap.6 - onNext(H)
+E15:46:05.270 [parallel-5] INFO reactor.Flux.ConcatMap.6 - onNext(L)
+E15:46:05.550 [parallel-6] INFO reactor.Flux.ConcatMap.6 - onNext(O)
+E15:46:05.830 [parallel-7] INFO reactor.Flux.ConcatMap.6 - onNext(E)
+H15:46:05.830 [parallel-7] INFO reactor.Flux.ConcatMap.6 - onComplete()
+	]15:46:05.838 [Test worker] INFO reactor.Flux.Merge.7 - onSubscribe(FluxFlatMap.FlatMapMain)
+	K15:46:05.839 [Test worker] INFO reactor.Flux.Merge.7 - request(unbounded)
+	A15:46:05.954 [parallel-8] INFO reactor.Flux.Merge.7 - onNext(A)
+	A15:46:05.970 [parallel-1] INFO reactor.Flux.Merge.7 - onNext(D)
+	A15:46:06.062 [parallel-2] INFO reactor.Flux.Merge.7 - onNext(B)
+	A15:46:06.108 [parallel-3] INFO reactor.Flux.Merge.7 - onNext(E)
+	A15:46:06.170 [parallel-4] INFO reactor.Flux.Merge.7 - onNext(C)
+	A15:46:06.252 [parallel-5] INFO reactor.Flux.Merge.7 - onNext(F)
+	D15:46:06.252 [parallel-5] INFO reactor.Flux.Merge.7 - onComplete()
+
+q15:46:06.257 [Test worker] INFO reactor.Flux.ConcatArray.8 - onSubscribe(FluxConcatArray.ConcatArraySubscriber)
+
+Q15:46:06.257 [Test worker] INFO reactor.Flux.ConcatArray.8 - request(unbounded)
+
+H15:46:06.258 [Test worker] INFO reactor.Flux.ConcatArray.8 - onNext(A)
+
+H15:46:06.258 [Test worker] INFO reactor.Flux.ConcatArray.8 - onNext(B)
+
+H15:46:06.258 [Test worker] INFO reactor.Flux.ConcatArray.8 - onNext(C)
+
+H15:46:06.258 [Test worker] INFO reactor.Flux.ConcatArray.8 - onNext(D)
+
+H15:46:06.258 [Test worker] INFO reactor.Flux.ConcatArray.8 - onNext(E)
+
+H15:46:06.258 [Test worker] INFO reactor.Flux.ConcatArray.8 - onNext(F)
+
+K15:46:06.258 [Test worker] INFO reactor.Flux.ConcatArray.8 - onComplete()
+]15:46:06.261 [Test worker] INFO reactor.Flux.Merge.9 - onSubscribe(FluxFlatMap.FlatMapMain)
+K15:46:06.261 [Test worker] INFO reactor.Flux.Merge.9 - request(unbounded)
+A15:46:06.370 [parallel-6] INFO reactor.Flux.Merge.9 - onNext(A)
+A15:46:06.400 [parallel-7] INFO reactor.Flux.Merge.9 - onNext(D)
+A15:46:06.477 [parallel-8] INFO reactor.Flux.Merge.9 - onNext(B)
+A15:46:06.541 [parallel-1] INFO reactor.Flux.Merge.9 - onNext(E)
+A15:46:06.584 [parallel-2] INFO reactor.Flux.Merge.9 - onNext(C)
+A15:46:06.677 [parallel-3] INFO reactor.Flux.Merge.9 - onNext(F)
+D15:46:06.677 [parallel-3] INFO reactor.Flux.Merge.9 - onComplete()
+Z15:46:06.683 [Test worker] INFO reactor.Flux.Map.10 - onSubscribe(FluxMap.MapSubscriber)
+J15:46:06.683 [Test worker] INFO reactor.Flux.Map.10 - request(unbounded)
+D15:46:06.715 [Test worker] INFO reactor.Flux.Map.10 - onNext(AD14)
+D15:46:06.715 [Test worker] INFO reactor.Flux.Map.10 - onNext(BE25)
+D15:46:06.715 [Test worker] INFO reactor.Flux.Map.10 - onNext(CF36)
+D15:46:06.716 [Test worker] INFO reactor.Flux.Map.10 - onComplete()
+h15:46:06.721 [Test worker] INFO reactor.Flux.Zip.11 - onSubscribe([Fuseable] Operators.MonoSubscriber)
+J15:46:06.722 [Test worker] INFO reactor.Flux.Zip.11 - request(unbounded)
+B15:46:06.723 [Test worker] INFO reactor.Flux.Zip.11 - onNext(AB)
+D15:46:06.723 [Test worker] INFO reactor.Flux.Zip.11 - onComplete()
+r15:46:06.733 [Test worker] INFO reactor.Flux.ConcatArray.12 - onSubscribe(FluxConcatArray.ConcatArraySubscriber)
+R15:46:06.733 [Test worker] INFO reactor.Flux.ConcatArray.12 - request(unbounded)
+N15:46:06.746 [Test worker] INFO reactor.Flux.ConcatArray.12 - onNext(4-ALEX)
+O15:46:06.747 [Test worker] INFO reactor.Flux.ConcatArray.12 - onNext(5-CHLOE)
+N15:46:06.748 [Test worker] INFO reactor.Flux.ConcatArray.12 - onNext(4-ANNA)
+L15:46:06.748 [Test worker] INFO reactor.Flux.ConcatArray.12 - onComplete()
+`15:46:06.752 [Test worker] INFO reactor.Flux.FlatMap.13 - onSubscribe(FluxFlatMap.FlatMapMain)
+N15:46:06.753 [Test worker] INFO reactor.Flux.FlatMap.13 - request(unbounded)
+E15:46:06.754 [Test worker] INFO reactor.Flux.FlatMap.13 - onNext(A)
+E15:46:06.754 [Test worker] INFO reactor.Flux.FlatMap.13 - onNext(L)
+E15:46:06.754 [Test worker] INFO reactor.Flux.FlatMap.13 - onNext(E)
+E15:46:06.754 [Test worker] INFO reactor.Flux.FlatMap.13 - onNext(X)
+E15:46:06.756 [Test worker] INFO reactor.Flux.FlatMap.13 - onNext(C)
+E15:46:06.757 [Test worker] INFO reactor.Flux.FlatMap.13 - onNext(H)
+E15:46:06.759 [Test worker] INFO reactor.Flux.FlatMap.13 - onNext(L)
+E15:46:06.759 [Test worker] INFO reactor.Flux.FlatMap.13 - onNext(O)
+E15:46:06.760 [Test worker] INFO reactor.Flux.FlatMap.13 - onNext(E)
+H15:46:06.760 [Test worker] INFO reactor.Flux.FlatMap.13 - onComplete()
+m15:46:06.796 [Test worker] INFO reactor.Mono.FlatMap.14 - | onSubscribe([Fuseable] MonoFlatMap.FlatMapMain)
+P15:46:06.796 [Test worker] INFO reactor.Mono.FlatMap.14 - | request(unbounded)
+Q15:46:07.809 [parallel-4] INFO reactor.Mono.FlatMap.14 - | onNext([A, L, E, X])
+I15:46:07.809 [parallel-4] INFO reactor.Mono.FlatMap.14 - | onComplete()
+†15:46:07.815 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onSubscribe([Fuseable] FluxDefaultIfEmpty.DefaultIfEmptySubscriber)
+U15:46:07.815 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - request(unbounded)
+L15:46:07.815 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onNext(A)
+L15:46:07.815 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onNext(L)
+L15:46:07.815 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onNext(E)
+L15:46:07.815 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onNext(X)
+L15:46:07.816 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onNext(C)
+L15:46:07.816 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onNext(H)
+L15:46:07.816 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onNext(L)
+L15:46:07.816 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onNext(O)
+L15:46:07.816 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onNext(E)
+O15:46:07.816 [Test worker] INFO reactor.Flux.DefaultIfEmpty.15 - onComplete()
+[15:46:07.820 [Test worker] INFO reactor.Flux.Zip.16 - onSubscribe(FluxZip.ZipCoordinator)
+J15:46:07.820 [Test worker] INFO reactor.Flux.Zip.16 - request(unbounded)
+B15:46:07.821 [Test worker] INFO reactor.Flux.Zip.16 - onNext(AD)
+B15:46:07.821 [Test worker] INFO reactor.Flux.Zip.16 - onNext(BE)
+B15:46:07.821 [Test worker] INFO reactor.Flux.Zip.16 - onNext(CF)
+D15:46:07.821 [Test worker] INFO reactor.Flux.Zip.16 - onComplete()
+LSubscription  is : reactor.core.publisher.FluxPeek$PeekSubscriber@24164a3a
+†15:46:07.834 [Test worker] INFO reactor.Flux.DefaultIfEmpty.17 - onSubscribe([Fuseable] FluxDefaultIfEmpty.DefaultIfEmptySubscriber)
+U15:46:07.835 [Test worker] INFO reactor.Flux.DefaultIfEmpty.17 - request(unbounded)
+name is : 4-ALEX
+P15:46:08.340 [parallel-5] INFO reactor.Flux.DefaultIfEmpty.17 - onNext(4-ALEX)
+name is : 5-CHLOE
+Q15:46:09.359 [parallel-7] INFO reactor.Flux.DefaultIfEmpty.17 - onNext(5-CHLOE)
+"Completed sending all the items.
+N15:46:09.359 [parallel-7] INFO reactor.Flux.DefaultIfEmpty.17 - onComplete()
+ value is : onComplete
+„15:46:09.366 [Test worker] INFO reactor.Flux.Iterable.18 - | onSubscribe([Synchronous Fuseable] FluxIterable.IterableSubscription)
+Q15:46:09.366 [Test worker] INFO reactor.Flux.Iterable.18 - | request(unbounded)
+K15:46:09.366 [Test worker] INFO reactor.Flux.Iterable.18 - | onNext(alex)
+J15:46:09.366 [Test worker] INFO reactor.Flux.Iterable.18 - | onNext(ben)
+L15:46:09.366 [Test worker] INFO reactor.Flux.Iterable.18 - | onNext(chloe)
+K15:46:09.366 [Test worker] INFO reactor.Flux.Iterable.18 - | onComplete()
+`15:46:09.369 [Test worker] INFO reactor.Flux.FlatMap.19 - onSubscribe(FluxFlatMap.FlatMapMain)
+N15:46:09.369 [Test worker] INFO reactor.Flux.FlatMap.19 - request(unbounded)
+D15:46:09.607 [parallel-8] INFO reactor.Flux.FlatMap.19 - onNext(A)
+D15:46:09.839 [parallel-2] INFO reactor.Flux.FlatMap.19 - onNext(L)
+D15:46:10.071 [parallel-3] INFO reactor.Flux.FlatMap.19 - onNext(E)
+D15:46:10.087 [parallel-1] INFO reactor.Flux.FlatMap.19 - onNext(C)
+D15:46:10.305 [parallel-4] INFO reactor.Flux.FlatMap.19 - onNext(X)
+D15:46:10.806 [parallel-5] INFO reactor.Flux.FlatMap.19 - onNext(H)
+D15:46:11.530 [parallel-6] INFO reactor.Flux.FlatMap.19 - onNext(L)
+D15:46:12.245 [parallel-7] INFO reactor.Flux.FlatMap.19 - onNext(O)
+D15:46:12.972 [parallel-8] INFO reactor.Flux.FlatMap.19 - onNext(E)
+G15:46:12.972 [parallel-8] INFO reactor.Flux.FlatMap.19 - onComplete()
+p15:46:12.977 [Test worker] INFO reactor.Flux.MonoFlatMapMany.20 - onSubscribe(MonoFlatMapMany.FlatMapManyMain)
+V15:46:12.977 [Test worker] INFO reactor.Flux.MonoFlatMapMany.20 - request(unbounded)
+L15:46:13.236 [parallel-1] INFO reactor.Flux.MonoFlatMapMany.20 - onNext(A)
+L15:46:13.499 [parallel-2] INFO reactor.Flux.MonoFlatMapMany.20 - onNext(L)
+L15:46:13.764 [parallel-3] INFO reactor.Flux.MonoFlatMapMany.20 - onNext(E)
+L15:46:14.027 [parallel-4] INFO reactor.Flux.MonoFlatMapMany.20 - onNext(X)
+O15:46:14.027 [parallel-4] INFO reactor.Flux.MonoFlatMapMany.20 - onComplete()
