@@ -1,11 +1,5 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/gradle
-# Edit at https://www.toptal.com/developers/gitignore?templates=gradle
-
-### Gradle ###
 .gradle
-**/build/
-!src/**/build/
+/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -16,10 +10,5 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
-# Eclipse Gradle plugin generated files
-# Eclipse Core
-.project
-# JDT-specific (Eclipse Java Development Tools)
-.classpath
-
-# End of https://www.toptal.com/developers/gitignore/api/gradle
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
