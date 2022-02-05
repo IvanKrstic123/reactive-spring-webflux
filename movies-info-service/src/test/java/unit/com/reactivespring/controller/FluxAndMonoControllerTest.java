@@ -10,7 +10,7 @@ import reactor.test.StepVerifier;
 import java.util.Objects;
 
 @WebFluxTest(controllers = FluxAndMonoController.class) //giving access to all endpoints of class
-    @AutoConfigureWebTestClient
+@AutoConfigureWebTestClient
 class FluxAndMonoControllerTest {
 
     @Autowired
@@ -60,6 +60,23 @@ class FluxAndMonoControllerTest {
                    var responseBody = listEntityExchangeResult.getResponseBody();
                    assert  (Objects.requireNonNull(responseBody).size() == 3);
                 });
+    }
 
+    @Test
+    void stream() {
+
+        var stream = webTestClient
+                .get()
+                .uri("/flux")
+                .exchange() //invoking endpoint
+                .expectStatus()
+                .is2xxSuccessful()
+                .returnResult(Long.class) // type of response body
+                .getResponseBody();
+
+        StepVerifier.create(stream)
+                .expectNext(1L, 2L, 3L)
+                .thenCancel()// step sending value when received
+                .verify();
     }
 }
