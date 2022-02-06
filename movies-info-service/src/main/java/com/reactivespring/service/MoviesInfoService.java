@@ -7,11 +7,11 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class MovieInfoService {
+public class MoviesInfoService {
 
     private MovieInfoRepository movieInfoRepository;
 
-    public MovieInfoService(MovieInfoRepository movieInfoRepository) {
+    public MoviesInfoService(MovieInfoRepository movieInfoRepository) {
         this.movieInfoRepository = movieInfoRepository;
     }
 
