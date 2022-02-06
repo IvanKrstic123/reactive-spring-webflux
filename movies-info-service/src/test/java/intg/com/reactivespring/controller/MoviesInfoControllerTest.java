@@ -128,4 +128,19 @@ class MoviesInfoControllerTest {
                     assertEquals("Vratice se rode", updatedMovieInfo.getName());
                 });
     }
+
+    @Test
+    void updateMovieInfoNotFound() {
+        // given
+        var movieInfoId = "def";
+        var movieInfo =  new MovieInfo(null, "Vratice se rode", 2007, List.of("Srdjan Todorovic", "Ljubomir Bandovic"), LocalDate.parse("2007-06-15"));
+
+        // when
+        webTestClient.put()
+                .uri(MOVIE_INFOS_URL + "/{id}", movieInfoId)
+                .bodyValue(movieInfo)
+                .exchange()
+                .expectStatus()
+                .isNotFound();
+    }
 }

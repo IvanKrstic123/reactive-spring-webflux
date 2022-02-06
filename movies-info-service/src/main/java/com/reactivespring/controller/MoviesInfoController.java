@@ -3,9 +3,12 @@ package com.reactivespring.controller;
 import com.reactivespring.domain.MovieInfo;
 import com.reactivespring.service.MoviesInfoService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/v1")
@@ -17,14 +20,14 @@ public class MoviesInfoController {
         this.movieInfoService = movieInfoService;
     }
 
-    @GetMapping("/movieInfos")
+    @GetMapping("/movieInfos") // if response status not defined it is 200
     public Flux<MovieInfo> getAllMovieInfos() {
         return movieInfoService.getAllMovieInfos().log();
     }
 
     @PostMapping("/movieInfos")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<MovieInfo> addMovieInfo(@RequestBody MovieInfo movieInfo) {
+    public Mono<MovieInfo> addMovieInfo(@RequestBody @Valid MovieInfo movieInfo) {
         return movieInfoService.addMovieInfo(movieInfo).log();
     }
 
@@ -34,8 +37,13 @@ public class MoviesInfoController {
     }
 
     @PutMapping("movieInfos/{id}")
-    public Mono<MovieInfo> updateMovieInfo(@RequestBody MovieInfo movieInfo, @PathVariable String id) {
-        return movieInfoService.updateMovieInfo(movieInfo, id);
+    public Mono<ResponseEntity<MovieInfo>> updateMovieInfo(@RequestBody MovieInfo updatedMovieInfo, @PathVariable String id) {
+        return movieInfoService.updateMovieInfo(updatedMovieInfo, id)
+                .map(movieInfo -> {
+                    return ResponseEntity.ok().body(movieInfo);
+                })
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build())) // if above call returns no data
+                .log();
     }
 
     @DeleteMapping("/movieInfos/{id}")

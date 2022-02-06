@@ -77,11 +77,31 @@ public class MoviesInfoControllerUnitTest {
     }
 
     @Test
+    void addMovieInfoValidation() {
+        // given
+        var movieInfo =  new MovieInfo("abcde", "", null, List.of(""), LocalDate.parse("2005-06-15"));
+        var expectedErrorMessage = "movieInfo.cast must be present,movieInfo.name must be present,must not be null";
+
+        webTestClient.post()
+                .uri(MOVIE_INFOS_URL)
+                .bodyValue(movieInfo)
+                .exchange()
+                .expectStatus()
+                .isBadRequest()
+                .expectBody(String.class)
+                .consumeWith(stringEntityExchangeResult -> {
+                    var responseBody = stringEntityExchangeResult.getResponseBody();
+                    System.out.println(responseBody);
+                    assertNotNull(responseBody);
+                    assertEquals(expectedErrorMessage, responseBody);
+                });
+    }
+
+    @Test
     void updateMovieInfo() {
         // given
         var movieInfoId = "abc";
         var movieInfo =  new MovieInfo("abcde", "Vratice se rode", 2007, List.of("Srdjan Todorovic", "Ljubomir Bandovic"), LocalDate.parse("2007-06-15"));
-
         // when
         when(moviesInfoService.updateMovieInfo(isA(MovieInfo.class), anyString())).thenReturn(Mono.just(movieInfo));
         webTestClient.put()
