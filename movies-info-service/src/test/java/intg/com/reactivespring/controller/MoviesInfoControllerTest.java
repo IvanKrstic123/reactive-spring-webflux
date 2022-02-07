@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -75,6 +76,22 @@ class MoviesInfoControllerTest {
                 .is2xxSuccessful()
                 .expectBodyList(MovieInfo.class)
                 .hasSize(3);
+    }
+
+    @Test
+    void getAllMovieInfoByYear() {
+        // pass request parameter
+        var uri = UriComponentsBuilder.fromUriString(MOVIE_INFOS_URL)
+                        .queryParam("year", 2005)
+                                .buildAndExpand().toUri();
+
+        webTestClient.get()
+                .uri(uri)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .expectBodyList(MovieInfo.class)
+                .hasSize(1);
     }
 
     @Test

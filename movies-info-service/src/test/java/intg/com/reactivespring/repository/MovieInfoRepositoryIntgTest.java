@@ -66,6 +66,17 @@ class MovieInfoRepositoryIntgTest {
     }
 
     @Test
+    void findByYear() {
+        // when
+        var moviesInfoFlux = movieInfoRepository.findByYear(2005).log();
+
+        // then
+        StepVerifier.create(moviesInfoFlux)
+                .expectNextCount(1)
+                .verifyComplete();
+    }
+
+    @Test
     void saveMovieInfo() {
         // given
         var movieInfo = new MovieInfo(null, "Betmen Begins 1", 2005, List.of("Cristian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"));
