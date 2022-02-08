@@ -28,4 +28,10 @@ public class ReviewHandler {
                             .bodyValue(savedReview);
                 });
     }
+
+    public Mono<ServerResponse> getReviews(ServerRequest request) {
+
+        var reviewsFlux = reviewReactiveRepository.findAll();
+        return ServerResponse.ok().body(reviewsFlux, Review.class);
+    }
 }

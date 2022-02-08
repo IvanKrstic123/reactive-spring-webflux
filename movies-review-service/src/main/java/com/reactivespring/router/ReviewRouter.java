@@ -1,6 +1,5 @@
 package com.reactivespring.router;
 
-import com.mongodb.internal.connection.Server;
 import com.reactivespring.handler.ReviewHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +17,7 @@ public class ReviewRouter {
         return route()
                 .GET("/v1/helloworld", (request) -> ServerResponse.ok().bodyValue("helloworld"))
                 .POST("/v1/reviews", request ->  reviewHandler.addReview(request))
+                .GET("/v1/reviews", request -> reviewHandler.getReviews(request))
                 .build();
     }
 }
