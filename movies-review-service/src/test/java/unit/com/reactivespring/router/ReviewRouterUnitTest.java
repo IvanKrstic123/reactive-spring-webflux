@@ -14,7 +14,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
@@ -67,5 +70,22 @@ class ReviewRouterUnitTest {
                 .isBadRequest()
                 .expectBody(String.class)
                 .isEqualTo("rating.movieInfoId : must not be null,rating.negative : please pass a non-negative value");
+    }
+
+    @Test
+    void updateReviewNotFoundExceptionTest() {
+        var reviewId = "def";
+        var reviewToUpdate = new Review(null, null,"Awesome Movie2", 9.50);
+
+        when(reviewReactiveRepository.findById(anyString())).thenReturn(Mono.empty());
+
+        webTestClient.put()
+                .uri(REVIEWS_URL + "/{id}", reviewId)
+                .bodyValue(reviewToUpdate)
+                .exchange()
+                .expectStatus()
+                .isNotFound()
+                .expectBody(String.class)
+                .isEqualTo("Review not found for the given Review id def");
     }
 }
