@@ -1,5 +1,6 @@
 package com.reactivespring.handler;
 
+import com.mongodb.internal.connection.Server;
 import com.reactivespring.domain.Review;
 import com.reactivespring.repository.ReviewReactiveRepository;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,42 @@ public class ReviewHandler {
 
     public Mono<ServerResponse> getReviews(ServerRequest request) {
 
-        var reviewsFlux = reviewReactiveRepository.findAll();
-        return ServerResponse.ok().body(reviewsFlux, Review.class);
+        var movieInfoId = request.queryParam("movieInfoId");
+        System.out.println(movieInfoId);
+
+        if (movieInfoId.isPresent()) {
+            var reviewsFlux = reviewReactiveRepository.findReviewsByMovieInfoId(Long.valueOf(movieInfoId.get()));
+            return ServerResponse.ok().body(reviewsFlux, Review.class); // can be extracted to a method
+        } else {
+            var reviewsFlux = reviewReactiveRepository.findAll();
+            return ServerResponse.ok().body(reviewsFlux, Review.class);
+        }
+    }
+
+    public Mono<ServerResponse> updateReview(ServerRequest request) {
+
+        String reviewId = request.pathVariable("id");
+
+        Mono<Review> existingReview = reviewReactiveRepository.findById(reviewId);
+
+        return existingReview
+                 .flatMap(review -> request.bodyToMono(Review.class)
+                         .map(reqReview -> {
+                             review.setComment(reqReview.getComment());
+                             review.setRating(reqReview.getRating());
+
+                            return review;
+                         }))
+                 .flatMap(reviewReactiveRepository::save)
+                 .flatMap(savedReview -> ServerResponse.ok().bodyValue(savedReview));
+    }
+
+    public Mono<ServerResponse> deleteReview(ServerRequest request) {
+        String reviewId = request.pathVariable("id");
+
+        Mono<Review> existingReview = reviewReactiveRepository.findById(reviewId);
+
+       return existingReview.flatMap(review -> reviewReactiveRepository.deleteById(reviewId)
+               .then(ServerResponse.noContent().build()));
     }
 }
