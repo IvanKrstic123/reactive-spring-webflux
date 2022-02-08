@@ -2,4 +2,4 @@
 
 This repository is for practicing reactive microservices using WebFlux
 
-![project microservice architecture](https://github.com/[IvanKrstic123]/[reactive-spring-webflux]/blob/[master]/image.png?raw=true)
+![image](https://user-images.githubusercontent.com/59697293/153081188-953d692c-978c-4db3-a9a7-29c699ee8e02.PNG)
