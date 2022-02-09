@@ -109,4 +109,28 @@ class MoviesControllerTest {
                     assertEquals(movie.getMovieInfo().getName(), "Vruc vetar");
                 });
     }
+
+    @Test
+    void retrieveMovieInfoById_5xx() {
+        var movieId = "abc";
+        stubFor(get(urlEqualTo("/v1/movieInfos" + "/" + movieId))
+                .willReturn(
+                        aResponse()
+                                .withStatus(500)
+                                .withBody("MovieInfo Service Unavailable")));
+
+        // we dont need stub for review because it will fail before calling reviews controller
+//        stubFor(get(urlPathEqualTo("/v1/reviews"))
+//                .willReturn(aResponse()
+//                        .withHeader("Content-Type", "application.json")
+//                        .withBody("reviews.json"))); // searching in resource folder
+
+        webTestClient.get()
+                .uri("/v1/movies/{id}", movieId)
+                .exchange()
+                .expectStatus()
+                .is5xxServerError()
+                .expectBody(String.class)
+                .isEqualTo("Server Exception in MoviesInfoService:  MovieInfo Service Unavailable");
+    }
 }
