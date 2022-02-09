@@ -1,0 +1,20 @@
+[
+  {
+    "reviewId": "620240fe836dba0781317032",
+    "movieInfoId": 2,
+    "comment": "Lele kolko dobar",
+    "rating": 9.0
+  },
+  {
+    "reviewId": "62025e8f5f5452033fc450da",
+    "movieInfoId": 2,
+    "comment": "Awesome movie really",
+    "rating": 9.0
+  },
+  {
+    "reviewId": "62025edb5f5452033fc450db",
+    "movieInfoId": 1,
+    "comment": "Awesome movie really",
+    "rating": 9.0
+  }
+]

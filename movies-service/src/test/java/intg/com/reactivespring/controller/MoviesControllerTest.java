@@ -1,12 +1,16 @@
 package com.reactivespring.controller;
 
+import com.reactivespring.domain.Movie;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // spring context, and do not use 8080
@@ -21,7 +25,37 @@ import static org.junit.jupiter.api.Assertions.*;
 )
 class MoviesControllerTest {
 
+    @Autowired
+    WebTestClient webTestClient;
+
+    /*
+        in order to create a response from a http call - STUB - stubFor()
+    */
+
     @Test
     void retrieveMovieById() {
+        var movieId = "abc";
+        stubFor(get(urlEqualTo("/v1/movieInfos" + "/" + movieId))
+                .willReturn(
+                        aResponse()
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile("movieinfo.json"))); // searching in resource folder
+
+        stubFor(get(urlPathEqualTo("/v1/reviews"))
+                .willReturn(aResponse()
+                                .withHeader("Content-Type", "application/json")
+                                .withBodyFile("reviews.json"))); // searching in resource folder
+
+        webTestClient.get()
+                .uri("/v1/movies/{id}", movieId)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(Movie.class)
+                .consumeWith(movieEntityExchangeResult -> {
+                    var movie = movieEntityExchangeResult.getResponseBody();
+                    assertNotNull(movie);
+                    assertEquals(movie.getReviewList().size(), 3);
+                    assertEquals(movie.getMovieInfo().getName(), "Vruc vetar");
+                });
     }
 }
