@@ -25,11 +25,16 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
+
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-contract-stub-runner  wiremock
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-contract-stub-runner', version: '3.1.0'
+
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
+
 // differentiate unit and integration test
 sourceSets {
     test {
