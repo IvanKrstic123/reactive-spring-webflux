@@ -58,4 +58,55 @@ class MoviesControllerTest {
                     assertEquals(movie.getMovieInfo().getName(), "Vruc vetar");
                 });
     }
+
+    @Test
+    void retrieveMovieInfoById_404() {
+        var movieId = "abc";
+        stubFor(get(urlEqualTo("/v1/movieInfos" + "/" + movieId))
+                .willReturn(
+                        aResponse()
+                                .withStatus(404)));
+
+        stubFor(get(urlPathEqualTo("/v1/reviews"))
+                .willReturn(aResponse()
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile("reviews.json"))); // searching in resource folder
+
+        webTestClient.get()
+                .uri("/v1/movies/{id}", movieId)
+                .exchange()
+                .expectStatus()
+                .is4xxClientError()
+                .expectBody(String.class)
+                .isEqualTo("There is no Movie Info for the passed in ID:  abc");
+    }
+
+    @Test
+    void retrieveMovieInfoById_reviews_404() {
+        var movieId = "abc";
+        stubFor(get(urlEqualTo("/v1/movieInfos" + "/" + movieId))
+                .willReturn(
+                        aResponse()
+                                .withHeader("Content-Type", "application/json")
+                                .withBodyFile("movieinfo.json"))); // searching in resource folder
+
+        stubFor(get(urlPathEqualTo("/v1/reviews"))
+                .willReturn(
+                        aResponse()
+                                .withStatus(404))); // searching in resource folder
+
+        // still successful because reviews are optional and movie can have no reviews
+        webTestClient.get()
+                .uri("/v1/movies/{id}", movieId)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(Movie.class)
+                .consumeWith(movieEntityExchangeResult -> {
+                    var movie = movieEntityExchangeResult.getResponseBody();
+                    assertNotNull(movie);
+                    assertEquals(movie.getReviewList().size(), 0);
+                    assertEquals(movie.getMovieInfo().getName(), "Vruc vetar");
+                });
+    }
 }
