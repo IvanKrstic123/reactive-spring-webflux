@@ -16,11 +16,11 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/v1/movies")
 public class MoviesController {
 
-    /* this controller is used to communicate with other two services
+    /*
+        this controller is used to communicate with other two services
         movie-info-service
         movie-review-service
-
-       movie is represented by movie info and multiple reviews
+        movie is represented by movie info and multiple reviews
      */
 
     private MoviesInfoRestClient moviesInfoRestClient;
@@ -49,7 +49,11 @@ public class MoviesController {
 
     @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<MovieInfo> retrieveMovieInfos() {
-
+        /*
+            start movie info and movie service
+            open http://localhost:8082/v1/movies/stream
+            POST movieInfo using http://localhost:8080/v1/movieInfos/
+         */
        return moviesInfoRestClient.retrieveMovieInfoStream();
     }
 

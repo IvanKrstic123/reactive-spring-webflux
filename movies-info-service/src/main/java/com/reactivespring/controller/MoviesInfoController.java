@@ -20,6 +20,8 @@ public class MoviesInfoController {
 
     private MoviesInfoService movieInfoService;
 
+    // emit data on post movie info
+    // subscribe data when get movie info is called
     Sinks.Many<MovieInfo> moviesInfoSink = Sinks.many().replay().latest();
 
     public MoviesInfoController(MoviesInfoService movieInfoService) {
