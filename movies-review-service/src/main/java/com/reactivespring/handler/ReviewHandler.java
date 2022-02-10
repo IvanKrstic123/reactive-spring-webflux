@@ -7,10 +7,12 @@ import com.reactivespring.repository.ReviewReactiveRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Sinks;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 public class ReviewHandler {
+
+    Sinks.Many<Review> reviewsSink = Sinks.many().replay().all();
 
     @Autowired
     private Validator validator;
@@ -35,6 +39,9 @@ public class ReviewHandler {
                 .doOnNext(this::validate) // bean validation using Validator
                 .flatMap(review -> {
                     return reviewReactiveRepository.save(review);
+                })
+                .doOnNext(review -> {
+                    reviewsSink.tryEmitNext(review);
                 })
                 .flatMap(savedReview -> {
                     return ServerResponse.status(HttpStatus.CREATED)
@@ -99,5 +106,14 @@ public class ReviewHandler {
 
        return existingReview.flatMap(review -> reviewReactiveRepository.deleteById(reviewId)
                .then(ServerResponse.noContent().build()));
+    }
+
+    public Mono<ServerResponse> getReviewsStream(ServerRequest request) {
+        System.out.println("Sve ti jebem!");
+
+        return ServerResponse.ok()
+                .contentType(MediaType.TEXT_EVENT_STREAM)
+                .body(reviewsSink.asFlux(), Review.class)
+                .log();
     }
 }
