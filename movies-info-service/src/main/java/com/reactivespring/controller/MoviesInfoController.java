@@ -4,10 +4,12 @@ import com.reactivespring.domain.MovieInfo;
 import com.reactivespring.service.MoviesInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Sinks;
 
 import javax.validation.Valid;
 
@@ -17,6 +19,8 @@ import javax.validation.Valid;
 public class MoviesInfoController {
 
     private MoviesInfoService movieInfoService;
+
+    Sinks.Many<MovieInfo> moviesInfoSink = Sinks.many().replay().latest();
 
     public MoviesInfoController(MoviesInfoService movieInfoService) {
         this.movieInfoService = movieInfoService;
@@ -31,13 +35,6 @@ public class MoviesInfoController {
         return movieInfoService.getAllMovieInfos().log();
     }
 
-
-    @PostMapping("/movieInfos")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono<MovieInfo> addMovieInfo(@RequestBody @Valid MovieInfo movieInfo) {
-        return movieInfoService.addMovieInfo(movieInfo).log();
-    }
-
     @GetMapping("movieInfos/{id}")
     public Mono<ResponseEntity<MovieInfo>> getMovieInfoById(@PathVariable String id) {
         return movieInfoService.getMovieInfoById(id)
@@ -46,6 +43,23 @@ public class MoviesInfoController {
                 })
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build())) // if movieinfo not found return 404
                 .log();
+    }
+
+    @GetMapping(value = "movieInfos/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<MovieInfo> getMovieInfoById() {
+        // ataching subscriber to a sink
+        return moviesInfoSink.asFlux();
+    }
+
+    @PostMapping("/movieInfos")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<MovieInfo> addMovieInfo(@RequestBody @Valid MovieInfo movieInfo) {
+
+        // when movie is added publish it to the sink
+        return movieInfoService.addMovieInfo(movieInfo)
+                .doOnNext(savedInfo -> {
+                    moviesInfoSink.tryEmitNext(savedInfo);
+                });
     }
 
     @PutMapping("movieInfos/{id}")
