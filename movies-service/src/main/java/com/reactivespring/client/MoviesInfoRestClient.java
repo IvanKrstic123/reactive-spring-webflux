@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.Exceptions;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
+
+import java.time.Duration;
 
 @Component
 @Slf4j
@@ -24,6 +28,13 @@ public class MoviesInfoRestClient {
     }
 
     public Mono<MovieInfo> retrieveMovieInfo(String movieId) {
+
+        // on retry exhausted we still want to throw actual exception
+        var retrySpec = Retry.fixedDelay(3, Duration.ofSeconds(1))
+                .filter(ex -> ex instanceof MoviesInfoServerException) // execute retry if 5xx, not for 404
+                .onRetryExhaustedThrow(((retryBackoffSpec, retrySignal) ->
+                        Exceptions.propagate(retrySignal.failure())));
+
         var url = moviesInfoUrl.concat("/{id}");
         return webClient
                 .get()
@@ -51,7 +62,8 @@ public class MoviesInfoRestClient {
                             )));
                 })
                 .bodyToMono(MovieInfo.class)
-                .retry(3) // retry call when failure occur
+                //.retry(3) // retry call when failure occur
+                .retryWhen(retrySpec)
                 .log();
     }
 }

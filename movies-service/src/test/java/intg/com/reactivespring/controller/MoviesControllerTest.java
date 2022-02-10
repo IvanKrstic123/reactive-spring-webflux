@@ -60,8 +60,11 @@ class MoviesControllerTest {
                 });
     }
 
+
     @Test
     void retrieveMovieInfoById_404() {
+        // we don't need retry on 404 => filter(ex -> ex instanceof MovieInfoServerException)  => in retrySpec
+
         var movieId = "abc";
         stubFor(get(urlEqualTo("/v1/movieInfos" + "/" + movieId))
                 .willReturn(
@@ -80,6 +83,9 @@ class MoviesControllerTest {
                 .is4xxClientError()
                 .expectBody(String.class)
                 .isEqualTo("There is no Movie Info for the passed in ID:  abc");
+
+        // testing retry when failure occur
+        WireMock.verify(1, getRequestedFor(urlEqualTo("/v1/movieInfos" + "/" + movieId)));
     }
 
     @Test
